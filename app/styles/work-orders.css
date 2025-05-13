@@ -1,0 +1,707 @@
+/* Work Orders Dashboard Styles */
+
+/* Container */
+.work-orders-page {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Page Header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.header-title-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.75rem;
+  color: var(--primary-color);
+}
+
+.order-count-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  margin-left: 0.75rem;
+  border-radius: 9999px;
+}
+
+/* Action Buttons */
+.add-order-button {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-order-button-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 0.5rem;
+}
+
+.add-order-button:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Status Tabs */
+.status-tabs {
+  display: flex;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.status-tab {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.status-tab:hover {
+  color: var(--primary-color);
+}
+
+.status-tab.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+.status-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--secondary-light);
+  color: white;
+  font-size: 0.75rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  margin-left: 0.5rem;
+}
+
+.status-tab.active .status-count {
+  background-color: var(--primary-color);
+}
+
+/* Filters */
+.filters-section {
+  margin-bottom: 1.5rem;
+}
+
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--surface-color);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+  min-width: 250px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: var(--text-secondary);
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.625rem 0.75rem 0.625rem 2.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.filter-label {
+  margin-right: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.filter-select {
+  padding: 0.625rem 2rem 0.625rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  background-color: white;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1rem;
+  appearance: none;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.reset-filters-button {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--surface-color);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  padding: 0.625rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.reset-filters-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 0.5rem;
+}
+
+.reset-filters-button:hover {
+  background-color: var(--background-color);
+}
+
+/* Action Bar */
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.update-status-button {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--secondary-light);
+  color: white;
+  border: none;
+  padding: 0.625rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.update-status-button:hover {
+  background-color: var(--secondary-color);
+}
+
+.filter-button {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--surface-color);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  padding: 0.625rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.filter-button:hover {
+  background-color: var(--background-color);
+}
+
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.date-input {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+}
+
+/* Work Orders Table */
+.work-orders-container {
+  background-color: var(--surface-color);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.work-orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.work-orders-table th {
+  background-color: var(--background-color);
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.875rem;
+  vertical-align: middle;
+}
+
+.work-orders-table th:first-child,
+.work-orders-table td:first-child {
+  width: 40px;
+  text-align: center;
+  padding: 0.75rem 0.5rem;
+}
+
+.work-orders-table th:nth-child(2),
+.work-orders-table td:nth-child(2) {
+  width: 110px;
+}
+
+.work-orders-table th:nth-child(3),
+.work-orders-table td:nth-child(3) {
+  width: 130px;
+}
+
+.work-orders-table th:nth-child(4),
+.work-orders-table td:nth-child(4) {
+  width: 120px;
+}
+
+.work-orders-table th:nth-child(5),
+.work-orders-table td:nth-child(5) {
+  width: 150px;
+}
+
+.work-orders-table th:nth-child(6),
+.work-orders-table td:nth-child(6) {
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.work-orders-table th:nth-child(7),
+.work-orders-table td:nth-child(7) {
+  width: 60px;
+  text-align: center;
+}
+
+.work-orders-table th:nth-child(8),
+.work-orders-table td:nth-child(8) {
+  width: 150px;
+}
+
+.work-orders-table th:nth-child(9),
+.work-orders-table td:nth-child(9) {
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.work-orders-table th:nth-child(10),
+.work-orders-table td:nth-child(10) {
+  width: 140px;
+}
+
+.work-orders-table th:last-child,
+.work-orders-table td:last-child {
+  width: 120px;
+}
+
+.work-orders-table th button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-weight: 500;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.work-orders-table th button svg {
+  width: 16px;
+  height: 16px;
+  margin-left: 0.25rem;
+}
+
+.work-orders-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.work-orders-table tr:hover {
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+.priority-cell {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.priority-indicator {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  margin-right: 0.5rem;
+}
+
+.priority-low {
+  background-color: var(--success-color);
+}
+
+.priority-medium {
+  background-color: var(--info-color);
+}
+
+.priority-high {
+  background-color: var(--warning-color);
+}
+
+.priority-urgent {
+  background-color: var(--danger-color);
+}
+
+.customer-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.customer-name {
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.order-number {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-id {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: var(--primary-color);
+}
+
+.order-date {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.assembly-cell {
+  max-width: 15rem;
+}
+
+.assembly-name {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.part-number {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.quantity {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.specs-cell {
+  max-width: 12rem;
+}
+
+.spec-item {
+  display: flex;
+  margin-bottom: 0.25rem;
+}
+
+.spec-label {
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+
+.spec-value {
+  color: var(--text-secondary);
+}
+
+.progress-cell {
+  width: 150px;
+}
+
+.progress-container {
+  position: relative;
+}
+
+.progress-text {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-text .flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-text input {
+  width: 3rem !important;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.progress-bar {
+  height: 0.5rem;
+  background-color: var(--border-color);
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--primary-color);
+}
+
+.status-cell {
+  width: 140px;
+}
+
+/* Status dropdown */
+.status-dropdown {
+  appearance: none;
+  border: none;
+  border-radius: 9999px;
+  width: 120px;
+  padding: 0.4rem 1.5rem 0.4rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: white;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 0.75rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 auto;
+}
+
+.status-dropdown:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.status-dropdown option {
+  background-color: white;
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.status-draft {
+  background-color: var(--secondary-color);
+}
+
+.status-pending {
+  background-color: var(--info-color);
+}
+
+.status-in-progress {
+  background-color: var(--primary-color);
+}
+
+.status-on-hold {
+  background-color: var(--warning-color);
+}
+
+.status-completed {
+  background-color: var(--success-color);
+}
+
+.status-delivered {
+  background-color: var(--success-color);
+}
+
+.status-cancelled {
+  background-color: var(--danger-color);
+}
+
+.actions-cell {
+  text-align: center;
+}
+
+.action-link {
+  display: inline-block;
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-link:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.pagination-info {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.pagination-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination-button:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.pagination-button.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1280px) {
+  .filters-container {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .work-orders-table th,
+  .work-orders-table td {
+    padding: 0.75rem 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .action-bar {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .date-range {
+    width: 100%;
+  }
+  
+  .date-input {
+    flex: 1;
+  }
+  
+  .pagination {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .pagination-info {
+    text-align: center;
+  }
+} 

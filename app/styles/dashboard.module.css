@@ -1,0 +1,106 @@
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 300px;
+  width: 100%;
+}
+
+.loadingText {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: #64748b;
+  text-align: center;
+}
+
+.spinner {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.spinnerBlade {
+  position: absolute;
+  top: 37%;
+  left: 44.5%;
+  width: 10%;
+  height: 25%;
+  border-radius: 50%/20%;
+  background-color: #3b82f6;
+  animation: spinner-blade 1s linear infinite;
+  transform-origin: center 150%;
+}
+
+.spinnerBlade:nth-child(1) {
+  animation-delay: 0s;
+  transform: rotate(0deg);
+}
+
+.spinnerBlade:nth-child(2) {
+  animation-delay: 0.083s;
+  transform: rotate(30deg);
+}
+
+.spinnerBlade:nth-child(3) {
+  animation-delay: 0.166s;
+  transform: rotate(60deg);
+}
+
+.spinnerBlade:nth-child(4) {
+  animation-delay: 0.249s;
+  transform: rotate(90deg);
+}
+
+.spinnerBlade:nth-child(5) {
+  animation-delay: 0.332s;
+  transform: rotate(120deg);
+}
+
+.spinnerBlade:nth-child(6) {
+  animation-delay: 0.415s;
+  transform: rotate(150deg);
+}
+
+.spinnerBlade:nth-child(7) {
+  animation-delay: 0.498s;
+  transform: rotate(180deg);
+}
+
+.spinnerBlade:nth-child(8) {
+  animation-delay: 0.581s;
+  transform: rotate(210deg);
+}
+
+.spinnerBlade:nth-child(9) {
+  animation-delay: 0.664s;
+  transform: rotate(240deg);
+}
+
+.spinnerBlade:nth-child(10) {
+  animation-delay: 0.747s;
+  transform: rotate(270deg);
+}
+
+.spinnerBlade:nth-child(11) {
+  animation-delay: 0.83s;
+  transform: rotate(300deg);
+}
+
+.spinnerBlade:nth-child(12) {
+  animation-delay: 0.913s;
+  transform: rotate(330deg);
+}
+
+@keyframes spinner-blade {
+  0% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0.25;
+  }
+} 

@@ -1,0 +1,106 @@
+/* User Item Styles */
+
+/* Organization Code */
+.user-org-code-container {
+  display: flex;
+  align-items: center;
+}
+
+.org-code-icon {
+  color: var(--text-secondary, #64748b);
+  margin-right: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.org-code {
+  font-family: monospace;
+  font-size: 0.75rem;
+  background-color: #f3f4f6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.125rem;
+}
+
+.no-org-code {
+  color: var(--text-disabled, #94a3b8);
+  font-size: 0.75rem;
+}
+
+/* Status badge styles - ensuring they're properly defined */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.status-badge.active {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: var(--success-color, #10b981);
+}
+
+.status-badge.inactive {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: var(--danger-color, #ef4444);
+}
+
+.status-badge-icon {
+  font-size: 0.625rem;
+}
+
+/* Action buttons */
+.actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 0.25rem;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-button:hover {
+  background-color: #f8fafc;
+}
+
+.view-button:hover {
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.edit-button:hover {
+  color: #f59e0b;
+  border-color: #f59e0b;
+}
+
+.toggle-button.active:hover {
+  color: #ef4444;
+  border-color: #ef4444;
+}
+
+.toggle-button.inactive:hover {
+  color: #10b981;
+  border-color: #10b981;
+}
+
+.delete-button:hover {
+  color: #ef4444;
+  border-color: #ef4444;
+}
+
+.action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+} 

@@ -1,0 +1,427 @@
+/* Auth Page Styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: white;
+  /* Removed overflow: hidden to allow scrolling on other pages */
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Change from min-height to fixed height */
+  background-color: white; /* Change from light gray to white */
+  margin-top: -40px; /* Move the form upward */
+  overflow: hidden; /* Apply overflow hidden only to login page */
+}
+
+/* Project header styles */
+.project-header {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 0.9rem;
+  color: #555;
+  font-weight: 500;
+  z-index: 10;
+}
+
+.login-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px; /* Slightly increased radius */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); /* Enhanced shadow for better contrast on white */
+  width: 400px; /* Fixed width instead of max-width */
+  border: 2px solid #e0e0e0; /* Added subtle gray border */
+}
+
+.login-container h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.login-description {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #666;
+}
+
+/* Auth Form Styles */
+.auth-form-container {
+  width: 100%;
+  /* Set minimum height for consistent form height */
+  min-height: 370px;
+}
+
+.auth-form-container h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #444;
+  font-size: 1.5rem;
+  width: 100%; /* Ensure full width */
+}
+
+/* Fixed height container for form content */
+form {
+  min-height: 230px;
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Ensure full width */
+}
+
+/* Hidden field that preserves layout space */
+.hidden-field {
+  visibility: hidden;
+  opacity: 0;
+  height: 81px; /* Exact height of a form group with label and input */
+  margin-bottom: 1.25rem;
+  pointer-events: none;
+  width: 100%; /* Ensure full width */
+}
+
+/* Error message */
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  text-align: center;
+  width: 100%; /* Ensure full width */
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  width: 100%; /* Ensure full width */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #444;
+  width: 100%; /* Ensure full width */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.form-group input:focus {
+  border-color: #0070f3;
+  outline: none;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: auto;
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.submit-button:hover {
+  background-color: #0060df;
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.auth-toggle {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.toggle-button {
+  background: transparent;
+  border: none;
+  color: #0070f3;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.toggle-button:hover {
+  text-decoration: underline;
+}
+
+.toggle-button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Login Type Selector - force equal button widths */
+.login-type-selector {
+  display: flex;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  width: 100%; /* Force full width */
+}
+
+.login-type-button {
+  flex: 1;
+  padding: 0.75rem 0; /* Remove horizontal padding, keep vertical */
+  border: none;
+  background-color: #f5f5f5;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center;
+  width: 33.333%; /* Force equal width for all three buttons */
+}
+
+.login-type-button:not(:last-child) {
+  border-right: 1px solid #ddd;
+}
+
+.login-type-button.active {
+  background-color: #0070f3;
+  color: white;
+}
+
+.login-type-button:hover:not(.active) {
+  background-color: #e9e9e9;
+}
+
+/* Auth Info */
+.auth-info {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border-left: 4px solid #0070f3;
+}
+
+.auth-info-text {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Demo Login Styles */
+.demo-login {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.demo-login-text {
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.demo-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.demo-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out, transform 0.15s ease-in-out;
+}
+
+.demo-button:hover {
+  transform: translateY(-1px);
+}
+
+.demo-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.demo-button.admin {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.demo-button.admin:hover {
+  background-color: #4338ca;
+}
+
+.demo-button.manager {
+  background-color: #0891b2;
+  color: white;
+}
+
+.demo-button.manager:hover {
+  background-color: #0e7490;
+}
+
+.demo-button.user {
+  background-color: #10b981;
+  color: white;
+}
+
+.demo-button.user:hover {
+  background-color: #059669;
+}
+
+/* Dashboard Page */
+.dashboard {
+  padding: 2rem;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  color: #1f2937;
+}
+
+.logout-button {
+  padding: 0.5rem 1rem;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.logout-button:hover {
+  background-color: #dc2626;
+}
+
+.user-profile {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.profile-details p {
+  margin: 0.5rem 0;
+  color: #4b5563;
+}
+
+.dashboard-content {
+  padding: 1.5rem;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-content h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.dashboard-content > p {
+  margin-bottom: 2rem;
+  color: #6b7280;
+}
+
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.module-card {
+  padding: 1.5rem;
+  border-radius: 6px;
+  background-color: #f9fafb;
+  transition: box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.module-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.module-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.module-card p {
+  margin: 0;
+  color: #6b7280;
+}
+
+/* Demo Mode Indicator */
+.demo-indicator {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 100;
+}
+
+.demo-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: #f59e0b;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.demo-note {
+  max-width: 220px;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.demo-indicator:hover .demo-note {
+  opacity: 1;
+  transform: translateY(0);
+} 
