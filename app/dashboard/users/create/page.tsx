@@ -102,7 +102,7 @@ export default function CreateUserPage() {
             // Auto-fill the organization in the form and disable editing
             setFormData(prev => ({
               ...prev,
-              organizationId: org.id.toString(),
+              organizationId: org.id ? org.id.toString() : '',
               organizationCode: org.code || currentUser.organizationCode || ''
             }));
             
