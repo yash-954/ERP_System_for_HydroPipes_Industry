@@ -103,7 +103,7 @@ export default function CreateUserPage() {
             setFormData(prev => ({
               ...prev,
               organizationId: org.id.toString(),
-              organizationCode: org.code || currentUser.organizationCode
+              organizationCode: org.code || currentUser.organizationCode || ''
             }));
             
             // Set the organizations array with just the current organization
