@@ -56,8 +56,11 @@ const getTransactionTypeClass = (type: string): string => {
     [InventoryTransactionType.PURCHASE]: 'transaction-purchase',
     [InventoryTransactionType.SALE]: 'transaction-sale',
     [InventoryTransactionType.ADJUSTMENT]: 'transaction-adjustment',
-    [InventoryTransactionType.RETURN]: 'transaction-return',
+    [InventoryTransactionType.RETURN_FROM_CUSTOMER]: 'transaction-return',
+    [InventoryTransactionType.RETURN_TO_SUPPLIER]: 'transaction-return',
     [InventoryTransactionType.TRANSFER]: 'transaction-transfer',
+    [InventoryTransactionType.PRODUCTION_CONSUMPTION]: 'transaction-consumption',
+    [InventoryTransactionType.PRODUCTION_OUTPUT]: 'transaction-output',
   };
   
   return typeMap[type] || 'transaction-other';
@@ -508,17 +511,17 @@ export default function InventoryItemDetail({ params }: { params: { id: string }
                       <tbody>
                         {transactions.map(transaction => (
                           <tr key={transaction.id}>
-                            <td>{formatDate(transaction.transactionDate)}</td>
+                            <td>{formatDate(transaction.timestamp)}</td>
                             <td>
-                              <span className={`transaction-type ${getTransactionTypeClass(transaction.transactionType)}`}>
-                                {formatType(transaction.transactionType)}
+                              <span className={`transaction-type ${getTransactionTypeClass(transaction.type)}`}>
+                                {formatType(transaction.type)}
                               </span>
                             </td>
                             <td className={transaction.quantity > 0 ? 'quantity-positive' : 'quantity-negative'}>
                               {transaction.quantity > 0 ? '+' : ''}{transaction.quantity}
                             </td>
-                            <td>{transaction.createdByName || 'N/A'}</td>
-                            <td>{transaction.referenceNumber || 'N/A'}</td>
+                            <td>{transaction.performedBy || 'N/A'}</td>
+                            <td>{transaction.referenceType && transaction.referenceId ? `${transaction.referenceType} #${transaction.referenceId}` : 'N/A'}</td>
                             <td>{transaction.notes || 'N/A'}</td>
                           </tr>
                         ))}

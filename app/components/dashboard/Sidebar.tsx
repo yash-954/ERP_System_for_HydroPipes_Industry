@@ -33,6 +33,20 @@ interface SidebarProps {
   onLogout: () => void;
 }
 
+// Define interface for navigation items
+interface NavItem {
+  name: string;
+  icon: React.ReactElement;
+  path: string;
+  moduleId: ModuleId;
+  roles?: UserRole[]; // Optional roles property
+}
+
+interface NavSection {
+  section: string;
+  items: NavItem[];
+}
+
 export default function Sidebar({ user, isCollapsed, toggleSidebar, isMobileOpen = false, onLogout }: SidebarProps) {
   const pathname = usePathname();
   const [moduleAccess, setModuleAccess] = useState<{ [key: string]: boolean }>({});
@@ -69,7 +83,7 @@ export default function Sidebar({ user, isCollapsed, toggleSidebar, isMobileOpen
   }, [user.id, user.role]); // Only depend on user.id and user.role, not the entire user object
 
   // Define navigation items with proper structure
-  const navItems = [
+  const navItems: NavSection[] = [
     {
       section: 'Main',
       items: [

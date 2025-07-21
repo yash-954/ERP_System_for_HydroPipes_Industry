@@ -21,7 +21,7 @@ export default function NotificationsDropdown() {
     
     setIsLoading(true);
     try {
-      const userNotifications = await notificationService.getByUser(user.id, 10);
+      const userNotifications = await notificationService.getByUser(user.id);
       setNotifications(userNotifications);
       
       // Get unread count

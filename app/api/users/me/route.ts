@@ -1,11 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { withAuth, AuthenticatedRequest } from '../../../middleware/auth';
-import User from '../../../models/User';
+import { getTokenData } from '../../../utils/auth';
+import { IUser } from '../../../models/User';
 
-async function handler(req: AuthenticatedRequest) {
+// Helper function to find a user by ID
+async function findUserById(userId: string): Promise<IUser | null> {
+  // Implement this function based on your data access method
+  // This is a placeholder
+  return null;
+}
+
+export async function GET(req: NextRequest) {
   try {
-    // Fetch user details (excluding password)
-    const user = await User.findById(req.user?._id);
+    // Get token data from auth header
+    const tokenData = getTokenData(req);
+    
+    if (!tokenData || !tokenData.userId) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+    
+    // Find user by ID
+    const user = await findUserById(tokenData.userId);
     
     if (!user) {
       return NextResponse.json(
@@ -14,7 +31,7 @@ async function handler(req: AuthenticatedRequest) {
       );
     }
     
-    // Return user profile data
+    // Return user data (excluding password)
     return NextResponse.json({
       user: {
         id: user._id,
@@ -23,17 +40,14 @@ async function handler(req: AuthenticatedRequest) {
         role: user.role,
         isActive: user.isActive,
         createdAt: user.createdAt,
-      },
+        updatedAt: user.updatedAt
+      }
     });
   } catch (error) {
-    console.error('Profile error:', error);
+    console.error('Error fetching user data:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch user profile' },
+      { error: 'Failed to fetch user data' },
       { status: 500 }
     );
   }
-}
-
-export function GET(req: NextRequest) {
-  return withAuth(req, handler);
 } 

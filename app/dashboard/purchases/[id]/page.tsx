@@ -25,13 +25,14 @@ import {
   DollarSign,
   Clock,
   ExternalLink,
-  Tool,
   X as XIcon
 } from 'lucide-react';
+import { CalendarDays as CalendarDaysIcon, Tag as TagIcon, User as UserIcon, Package as PackageIcon, ShoppingBag as ShoppingBagIcon, Clock as ClockIcon, ExternalLink as ExternalLinkIcon } from 'lucide-react';
 import DashboardLayout from '@/app/components/dashboard/DashboardLayout';
 import { useAuth } from '@/app/lib/contexts/AuthContext';
 import purchaseService from '@/app/lib/services/purchaseService';
-import { LocalPurchaseOrder, LocalPurchaseOrderStatusChange } from '@/app/lib/db/localDb';
+import { LocalPurchaseOrder } from '@/app/models/Purchase';
+import { LocalPurchaseOrderStatusChange } from '@/app/lib/db/localDb';
 import { PurchaseOrderStatus } from '@/app/models/Purchase';
 import '@/app/styles/purchases.css';
 
@@ -70,12 +71,12 @@ const formatStatus = (status: PurchaseOrderStatus) => {
       return 'Ordered';
     case PurchaseOrderStatus.PARTIALLY_RECEIVED:
       return 'Partially Received';
-    case PurchaseOrderStatus.FULLY_RECEIVED:
+    case PurchaseOrderStatus.RECEIVED:
       return 'Fully Received';
     case PurchaseOrderStatus.CANCELLED:
       return 'Cancelled';
     default:
-      return status.charAt(0).toUpperCase() + status.slice(1).replace(/_/g, ' ');
+      return (status as string).charAt(0).toUpperCase() + (status as string).slice(1).replace(/_/g, ' ');
   }
 };
 
@@ -175,7 +176,7 @@ export default function PurchaseOrderDetailsPage({ params }: { params: { id: str
           item => item.receivedQuantity === item.quantity
         );
         newStatus = allItemsReceived 
-          ? PurchaseOrderStatus.FULLY_RECEIVED 
+          ? PurchaseOrderStatus.RECEIVED 
           : PurchaseOrderStatus.PARTIALLY_RECEIVED;
         break;
       default:
@@ -226,9 +227,8 @@ export default function PurchaseOrderDetailsPage({ params }: { params: { id: str
       await purchaseService.update(purchaseOrderId, {
         lineItems: updatedLineItems,
         status: allItemsReceived 
-          ? PurchaseOrderStatus.FULLY_RECEIVED 
+          ? PurchaseOrderStatus.RECEIVED 
           : PurchaseOrderStatus.PARTIALLY_RECEIVED,
-        updatedAt: new Date(),
         createdBy: currentUser?.id || 0 // Using createdBy to track who updated it
       });
       
@@ -319,7 +319,7 @@ export default function PurchaseOrderDetailsPage({ params }: { params: { id: str
       case PurchaseOrderStatus.PARTIALLY_RECEIVED:
         className += 'status-partial';
         break;
-      case PurchaseOrderStatus.FULLY_RECEIVED:
+      case PurchaseOrderStatus.RECEIVED:
         className += 'status-completed';
         break;
       case PurchaseOrderStatus.CANCELLED:
@@ -353,7 +353,7 @@ export default function PurchaseOrderDetailsPage({ params }: { params: { id: str
   // Render loading state
   if (isLoading) {
     return (
-      <DashboardLayout>
+      <DashboardLayout pageTitle="Loading Purchase Order">
         <div className="loading-container">
           <div className="loading-spinner"></div>
           <p>Loading purchase order details...</p>
@@ -365,7 +365,7 @@ export default function PurchaseOrderDetailsPage({ params }: { params: { id: str
   // Render error state
   if (error) {
     return (
-      <DashboardLayout>
+      <DashboardLayout pageTitle="Error">
         <div className="error-container">
           <AlertCircle className="error-icon" />
           <h2>Error</h2>
@@ -382,7 +382,7 @@ export default function PurchaseOrderDetailsPage({ params }: { params: { id: str
   // Render not found state
   if (!purchaseOrder) {
     return (
-      <DashboardLayout>
+      <DashboardLayout pageTitle="Not Found">
         <div className="not-found-container">
           <AlertCircle className="not-found-icon" />
           <h2>Purchase Order Not Found</h2>
@@ -397,7 +397,7 @@ export default function PurchaseOrderDetailsPage({ params }: { params: { id: str
   }
   
   return (
-    <DashboardLayout>
+    <DashboardLayout pageTitle={`Purchase Order: ${purchaseOrder.orderNumber}`}>
       <div className="purchase-order-details-container">
         {/* Header */}
         <div className="purchase-order-header">
@@ -441,19 +441,19 @@ export default function PurchaseOrderDetailsPage({ params }: { params: { id: str
               </button>
             )}
             
-            {(purchaseOrder.status === PurchaseOrderStatus.FULLY_RECEIVED || 
+            {(purchaseOrder.status === PurchaseOrderStatus.RECEIVED || 
               purchaseOrder.status === PurchaseOrderStatus.PARTIALLY_RECEIVED) && (
               <button 
                 className="btn-primary"
                 onClick={navigateToCreateWorkOrder}
               >
-                <Tool size={16} />
+                <ExternalLinkIcon size={16} />
                 Create Work Order
               </button>
             )}
             
             {purchaseOrder.status !== PurchaseOrderStatus.CANCELLED && 
-             purchaseOrder.status !== PurchaseOrderStatus.FULLY_RECEIVED && 
+             purchaseOrder.status !== PurchaseOrderStatus.RECEIVED && 
              getNextActionText() && (
               <button 
                 className="btn-secondary"
@@ -554,16 +554,16 @@ export default function PurchaseOrderDetailsPage({ params }: { params: { id: str
                     <span className="detail-value">{purchaseOrder.supplierName}</span>
                   </div>
                   <div className="detail-item">
-                    <span className="detail-label">Contact Person:</span>
-                    <span className="detail-value">{purchaseOrder.supplierContactPerson || 'N/A'}</span>
+                    <span className="detail-label">Supplier ID:</span>
+                    <span className="detail-value">{purchaseOrder.supplierId}</span>
                   </div>
                   <div className="detail-item">
-                    <span className="detail-label">Email:</span>
-                    <span className="detail-value">{purchaseOrder.supplierEmail || 'N/A'}</span>
+                    <span className="detail-label">Payment Terms:</span>
+                    <span className="detail-value">{purchaseOrder.paymentTerms || 'N/A'}</span>
                   </div>
                   <div className="detail-item">
-                    <span className="detail-label">Phone:</span>
-                    <span className="detail-value">{purchaseOrder.supplierPhone || 'N/A'}</span>
+                    <span className="detail-label">Shipping Method:</span>
+                    <span className="detail-value">{purchaseOrder.shippingMethod || 'N/A'}</span>
                   </div>
                 </div>
               </div>

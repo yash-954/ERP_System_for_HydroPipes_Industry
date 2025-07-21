@@ -3,11 +3,22 @@ import { ENV, isDev } from '../utils/env';
 
 const MONGODB_URI = ENV.MONGODB_URI;
 
-// Cached connection
-let cached = global.mongoose;
+// Define connection cache type
+interface MongooseCache {
+  conn: typeof mongoose | null;
+  promise: Promise<typeof mongoose> | null;
+}
 
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+// Global with mongoose
+declare global {
+  var mongoose: MongooseCache | undefined;
+}
+
+// Cached connection
+let cached: MongooseCache = global.mongoose || { conn: null, promise: null };
+
+if (!global.mongoose) {
+  global.mongoose = cached;
 }
 
 async function connectDB() {

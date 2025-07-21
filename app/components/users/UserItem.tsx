@@ -1,11 +1,11 @@
 import React from 'react';
-import { User } from '@/app/models/User';
+import { IUser } from '@/app/models/User';
 import Link from 'next/link';
 import { FaEye, FaEdit, FaTrash, FaToggleOn, FaToggleOff, FaBuilding } from 'react-icons/fa';
 import '@/app/styles/user-item.css';
 
 interface UserItemProps {
-  user: User;
+  user: IUser;
   currentUserId: string;
   onToggleStatus: (userId: string, newStatus: boolean) => void;
   onDelete: (userId: string) => void;
@@ -38,6 +38,10 @@ const UserItem: React.FC<UserItemProps> = ({
     }
   };
 
+  // Handle optional organizationCode property
+  const organizationCode = 'organizationCode' in user && user.organizationCode ? 
+    String(user.organizationCode) : '';
+
   return (
     <tr>
       <td>
@@ -57,8 +61,8 @@ const UserItem: React.FC<UserItemProps> = ({
         </span>
       </td>
       <td>
-        <span className={`status-badge ${user.active ? 'active' : 'inactive'}`}>
-          {user.active ? (
+        <span className={`status-badge ${user.isActive ? 'active' : 'inactive'}`}>
+          {user.isActive ? (
             <>
               <span className="status-badge-icon">●</span> Active
             </>
@@ -70,42 +74,42 @@ const UserItem: React.FC<UserItemProps> = ({
         </span>
       </td>
       <td>
-        {user.organizationCode ? (
+        {organizationCode ? (
           <div className="user-org-code-container">
             <FaBuilding className="org-code-icon" />
-            <code className="org-code">{user.organizationCode}</code>
+            <code className="org-code">{organizationCode}</code>
           </div>
         ) : (
           <span className="no-org-code">No code</span>
         )}
       </td>
       <td className="actions-cell">
-        <Link href={`/dashboard/users/${user.id}`} passHref>
+        <Link href={`/dashboard/users/${user._id}`} passHref>
           <button className="action-button view-button" title="View user">
             <FaEye />
           </button>
         </Link>
         
-        <Link href={`/dashboard/users/${user.id}/edit`} passHref>
+        <Link href={`/dashboard/users/${user._id}/edit`} passHref>
           <button className="action-button edit-button" title="Edit user">
             <FaEdit />
           </button>
         </Link>
         
-        {currentUserId !== user.id && (
+        {currentUserId !== user._id && (
           <>
             <button
-              className={`action-button toggle-button ${user.active ? 'active' : 'inactive'}`}
-              onClick={() => onToggleStatus(user.id!, !user.active)}
+              className={`action-button toggle-button ${user.isActive ? 'active' : 'inactive'}`}
+              onClick={() => onToggleStatus(user._id!, !user.isActive)}
               disabled={isLoading}
-              title={user.active ? "Deactivate user" : "Activate user"}
+              title={user.isActive ? "Deactivate user" : "Activate user"}
             >
-              {user.active ? <FaToggleOn /> : <FaToggleOff />}
+              {user.isActive ? <FaToggleOn /> : <FaToggleOff />}
             </button>
             
             <button
               className="action-button delete-button"
-              onClick={() => onDelete(user.id!)}
+              onClick={() => onDelete(user._id!)}
               disabled={isLoading}
               title="Delete user"
             >

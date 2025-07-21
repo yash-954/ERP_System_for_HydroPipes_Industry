@@ -274,7 +274,7 @@ export default function NotificationsPage() {
                         <span className="notification-date">
                           {notification.createdAt && formatDate(notification.createdAt)}
                         </span>
-                        {notification.isSystemWide && (
+                        {notification.metadata?.isSystemWide && (
                           <span className="notification-system">System notification</span>
                         )}
                       </div>

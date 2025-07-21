@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { 
   Clipboard, 
   Search, 
@@ -16,13 +17,23 @@ import {
   PenLine,
   CheckCircle,
   XIcon,
-  ShoppingBag
+  ShoppingBag,
+  Calendar,
+  Tag,
+  FileText,
+  ChevronDown,
+  Plus,
+  Check,
+  Clock,
+  DollarSign,
+  TrendingUp,
+  ArrowLeft,
+  ArrowRight
 } from 'lucide-react';
 import DashboardLayout from '@/app/components/dashboard/DashboardLayout';
 import { useAuth } from '@/app/lib/contexts/AuthContext';
 import purchaseService from '@/app/lib/services/purchaseService';
-import { LocalPurchaseOrder } from '@/app/lib/db/localDb';
-import { PurchaseOrderStatus } from '@/app/models/Purchase';
+import { LocalPurchaseOrder, PurchaseOrderStatus } from '@/app/models/Purchase';
 import '@/app/styles/purchases.css';
 
 const ITEMS_PER_PAGE = 10;
@@ -40,12 +51,12 @@ const formatStatus = (status: PurchaseOrderStatus) => {
       return 'Ordered';
     case PurchaseOrderStatus.PARTIALLY_RECEIVED:
       return 'Partially Received';
-    case PurchaseOrderStatus.FULLY_RECEIVED:
+    case PurchaseOrderStatus.RECEIVED:
       return 'Fully Received';
     case PurchaseOrderStatus.CANCELLED:
       return 'Cancelled';
     default:
-      return status.charAt(0).toUpperCase() + status.slice(1).replace(/_/g, ' ');
+      return (status as string).charAt(0).toUpperCase() + (status as string).slice(1).replace(/_/g, ' ');
   }
 };
 
@@ -79,7 +90,7 @@ export default function PurchasesPage() {
     [PurchaseOrderStatus.APPROVED]: 0,
     [PurchaseOrderStatus.ORDERED]: 0,
     [PurchaseOrderStatus.PARTIALLY_RECEIVED]: 0,
-    [PurchaseOrderStatus.FULLY_RECEIVED]: 0,
+    [PurchaseOrderStatus.RECEIVED]: 0,
     [PurchaseOrderStatus.CANCELLED]: 0
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -178,7 +189,7 @@ export default function PurchasesPage() {
           [PurchaseOrderStatus.APPROVED]: 3,
           [PurchaseOrderStatus.ORDERED]: 4,
           [PurchaseOrderStatus.PARTIALLY_RECEIVED]: 5,
-          [PurchaseOrderStatus.FULLY_RECEIVED]: 6,
+          [PurchaseOrderStatus.RECEIVED]: 6,
           [PurchaseOrderStatus.CANCELLED]: 7
         };
         comparison = statusOrder[a.status] - statusOrder[b.status];
@@ -272,11 +283,14 @@ export default function PurchasesPage() {
   };
 
   return (
-    <DashboardLayout>
+    <DashboardLayout pageTitle="Purchase Orders">
       <div className="purchase-orders-container">
         <div className="page-header">
           <div className="title-section">
-            <h1>Purchase Orders</h1>
+            <h1 className="page-title">
+              <ShoppingBag className="title-icon" />
+              Purchase Orders
+            </h1>
             <p>Manage your purchase orders and procurement processes</p>
           </div>
           <button 

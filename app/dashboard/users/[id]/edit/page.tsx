@@ -46,7 +46,7 @@ export default function EditUserPage({ params }: { params: { id: string } }) {
     email: '',
     password: '',
     confirmPassword: '',
-    role: UserRole.USER,
+    role: UserRole.BASIC,
     isActive: true,
     organizationId: null,
     organizationCode: '',
@@ -99,10 +99,10 @@ export default function EditUserPage({ params }: { params: { id: string } }) {
           confirmPassword: '',
           role: userData.role,
           isActive: userData.isActive,
-          organizationId: userData.organizationId,
+          organizationId: userData.organizationId || null,
           organizationCode: userData.organizationCode || '',
-          departmentId: userData.departmentId,
-          managerId: userData.managerId
+          departmentId: userData.departmentId || null,
+          managerId: userData.managerId || null
         });
         
         // Load organizations for dropdown
@@ -242,10 +242,10 @@ export default function EditUserPage({ params }: { params: { id: string } }) {
         email: formData.email,
         role: formData.role,
         isActive: formData.isActive,
-        organizationId: formData.organizationId,
-        organizationCode: formData.organizationCode || null,
-        departmentId: formData.departmentId,
-        managerId: formData.managerId,
+        organizationId: formData.organizationId || undefined,
+        organizationCode: formData.organizationCode || undefined,
+        departmentId: formData.departmentId || undefined,
+        managerId: formData.managerId || undefined,
         updatedAt: new Date()
       };
       
@@ -267,11 +267,7 @@ export default function EditUserPage({ params }: { params: { id: string } }) {
           await permissionService.create({
             userId,
             moduleId: permission.moduleId,
-            canView: permission.canView,
-            canCreate: permission.canCreate,
-            canEdit: permission.canEdit,
-            canDelete: permission.canDelete,
-            canApprove: permission.canApprove
+            canView: permission.canView
           });
         }
       }
@@ -578,9 +574,7 @@ export default function EditUserPage({ params }: { params: { id: string } }) {
                       </option>
                     ))}
                   </select>
-                  {formData.role === UserRole.ADMIN && (
-                    <p className="form-field-hint">Admins don't have managers</p>
-                  )}
+                  <p className="form-field-hint">Select the manager for this user</p>
                 </div>
               )}
             </div>

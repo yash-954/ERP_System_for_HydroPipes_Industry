@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { 
   ArrowLeft, 
   Save, 
@@ -19,8 +19,7 @@ import {
 } from 'lucide-react';
 import DashboardLayout from '@/app/components/dashboard/DashboardLayout';
 import { useAuth } from '@/app/lib/contexts/AuthContext';
-import { LocalPurchaseOrder } from '@/app/lib/db/localDb';
-import { PurchaseOrderStatus, IPurchaseOrderItem } from '@/app/models/Purchase';
+import { LocalPurchaseOrder, PurchaseOrderStatus, IPurchaseOrderItem } from '@/app/models/Purchase';
 import purchaseService from '@/app/lib/services/purchaseService';
 import '@/app/styles/purchase-form.css';
 
@@ -156,7 +155,7 @@ export default function CreatePurchaseOrderPage() {
         setFormData(prev => ({
           ...prev,
           orderNumber,
-          shippingAddress: currentUser.organizationAddress || 'HydroPipes Industries, Industrial Area Phase 2, Pune, Maharashtra, India - 411057'
+          shippingAddress: 'HydroPipes Industries, Industrial Area Phase 2, Pune, Maharashtra, India - 411057'
         }));
         
       } catch (error) {
@@ -330,37 +329,32 @@ export default function CreatePurchaseOrderPage() {
         expectedDeliveryDate: formData.expectedDeliveryDate ? new Date(formData.expectedDeliveryDate) : undefined,
         status: formData.status,
         notes: formData.notes,
-        termsAndConditions: formData.termsAndConditions,
-        shippingAddress: formData.shippingAddress,
         subtotal: formData.subtotal,
-        taxRate: formData.taxRate,
         taxAmount: formData.taxAmount,
-        discountRate: formData.discountRate,
-        discountAmount: formData.discountAmount,
         shippingCost: formData.shippingCost,
+        discount: formData.discountAmount,
         totalAmount: formData.totalAmount,
         paymentTerms: formData.paymentTerms,
-        createdBy: currentUser.id,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        createdBy: currentUser?.id || 0,
+        
+        // Add lineItems to the purchase order data
+        lineItems: formData.items.map(item => ({
+          productId: parseInt(item.inventoryItemId),
+          productName: item.inventoryItemName,
+          description: item.description,
+          quantity: item.quantity,
+          receivedQuantity: item.received,
+          unit: item.unit,
+          unitPrice: item.unitPrice,
+          taxRate: 0, // Default tax rate
+          taxAmount: 0, // Calculate tax if needed
+          totalPrice: item.totalPrice
+        }))
       };
       
-      // Prepare purchase order items
-      const purchaseOrderItems = formData.items.map(item => ({
-        inventoryItemId: parseInt(item.inventoryItemId),
-        inventoryItemName: item.inventoryItemName,
-        description: item.description,
-        quantity: item.quantity,
-        unit: item.unit,
-        unitPrice: item.unitPrice,
-        totalPrice: item.totalPrice,
-        received: 0
-      }));
-      
-      // Create purchase order
+      // Create purchase order with all data in one object
       const newPurchaseOrderId = await purchaseService.create(
-        purchaseOrderData as LocalPurchaseOrder, 
-        purchaseOrderItems
+        purchaseOrderData as LocalPurchaseOrder
       );
       
       setSuccess('Purchase order created successfully');
@@ -384,7 +378,7 @@ export default function CreatePurchaseOrderPage() {
   };
   
   return (
-    <DashboardLayout>
+    <DashboardLayout pageTitle="Create Purchase Order">
       <div className="purchase-form-container">
         <div className="page-header">
           <button 
